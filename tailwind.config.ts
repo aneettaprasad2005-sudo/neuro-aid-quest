@@ -62,8 +62,9 @@ export default {
         },
       },
       fontFamily: {
-        dyslexia: ['Comic Neue', 'Atkinson Hyperlegible', 'sans-serif'],
-        accessible: ['Atkinson Hyperlegible', 'Comic Neue', 'sans-serif'],
+        dyslexia: ['OpenDyslexic', 'Comic Neue', 'Atkinson Hyperlegible', 'sans-serif'],
+        accessible: ['Atkinson Hyperlegible', 'OpenDyslexic', 'Comic Neue', 'sans-serif'],
+        opendyslexic: ['OpenDyslexic', 'monospace'],
       },
       borderRadius: {
         lg: "var(--radius)",

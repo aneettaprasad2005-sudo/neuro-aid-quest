@@ -8,13 +8,15 @@ import {
   Contrast, 
   Type,
   Heart,
-  PenTool 
+  PenTool,
+  Brain,
+  Trophy
 } from "lucide-react";
 import { useState } from "react";
 
 interface HeaderProps {
-  currentPage: 'home' | 'reading' | 'math' | 'writing';
-  onPageChange: (page: 'home' | 'reading' | 'math' | 'writing') => void;
+  currentPage: 'home' | 'reading' | 'math' | 'writing' | 'assessment' | 'learning';
+  onPageChange: (page: 'home' | 'reading' | 'math' | 'writing' | 'assessment' | 'learning') => void;
 }
 
 export default function Header({ currentPage, onPageChange }: HeaderProps) {
@@ -93,6 +95,26 @@ export default function Header({ currentPage, onPageChange }: HeaderProps) {
             >
               <PenTool className="w-4 h-4" />
               <span className="hidden md:inline">Writing</span>
+            </Button>
+
+            <Button
+              variant={currentPage === 'assessment' ? 'default' : 'ghost'}
+              size="sm"
+              onClick={() => onPageChange('assessment')}
+              className="flex items-center space-x-2"
+            >
+              <Brain className="w-4 h-4" />
+              <span className="hidden md:inline">Assessment</span>
+            </Button>
+
+            <Button
+              variant={currentPage === 'learning' ? 'default' : 'ghost'}
+              size="sm"
+              onClick={() => onPageChange('learning')}
+              className="flex items-center space-x-2"
+            >
+              <Trophy className="w-4 h-4" />
+              <span className="hidden md:inline">Learning</span>
             </Button>
           </nav>
 

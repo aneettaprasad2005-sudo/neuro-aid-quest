@@ -11,11 +11,15 @@ import {
   Brain,
   Star,
   ArrowRight,
-  PenTool
+  PenTool,
+  Target,
+  Award,
+  Trophy,
+  Eye
 } from "lucide-react";
 
 interface HomePageProps {
-  onNavigate: (page: 'reading' | 'math' | 'writing') => void;
+  onNavigate: (page: 'reading' | 'math' | 'writing' | 'assessment' | 'learning') => void;
 }
 
 export default function HomePage({ onNavigate }: HomePageProps) {
@@ -49,10 +53,10 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               <Button 
                 size="lg" 
                 className="bg-gradient-primary hover:scale-105 transform transition-all duration-300 text-lg px-8 py-6"
-                onClick={() => onNavigate('reading')}
+                onClick={() => onNavigate('assessment')}
               >
-                <BookOpen className="w-5 h-5 mr-2" />
-                Start Reading
+                <Brain className="w-5 h-5 mr-2" />
+                Take Assessment
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
               
@@ -60,20 +64,20 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 variant="outline" 
                 size="lg"
                 className="hover:scale-105 transform transition-all duration-300 text-lg px-8 py-6"
-                onClick={() => onNavigate('math')}
+                onClick={() => onNavigate('reading')}
               >
-                <Calculator className="w-5 h-5 mr-2" />
-                Explore Math
+                <BookOpen className="w-5 h-5 mr-2" />
+                Reading Tools
               </Button>
 
               <Button 
                 variant="secondary" 
                 size="lg"
                 className="hover:scale-105 transform transition-all duration-300 text-lg px-8 py-6"
-                onClick={() => onNavigate('writing')}
+                onClick={() => onNavigate('math')}
               >
-                <PenTool className="w-5 h-5 mr-2" />
-                Writing Tools
+                <Calculator className="w-5 h-5 mr-2" />
+                Math Helper
               </Button>
             </div>
           </div>
@@ -92,34 +96,74 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Dyslexia Support Card */}
-            <Card className="card-soft interactive hover:border-primary/50 group">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Assessment Card - Featured */}
+            <Card className="card-soft interactive hover:border-primary/50 group md:col-span-2">
               <CardHeader className="text-center">
                 <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                  <BookOpen className="w-8 h-8 text-primary-foreground" />
+                  <Brain className="w-8 h-8 text-primary-foreground" />
                 </div>
-                <CardTitle className="text-xl font-accessible">Reading Support</CardTitle>
+                <CardTitle className="text-xl font-accessible">AI-Powered Assessment</CardTitle>
                 <CardDescription className="text-base">
-                  Synchronized text-to-speech with real-time word highlighting
+                  Comprehensive dyslexia assessment with personalized learning recommendations
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2">
+                    <Target className="w-4 h-4 text-primary" />
+                    <span className="text-sm">5 comprehensive tests</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Brain className="w-4 h-4 text-primary" />
+                    <span className="text-sm">AI-powered analysis</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Award className="w-4 h-4 text-primary" />
+                    <span className="text-sm">Personalized tasks</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Trophy className="w-4 h-4 text-primary" />
+                    <span className="text-sm">Progress tracking</span>
+                  </div>
+                </div>
+                <Button 
+                  className="w-full bg-gradient-primary" 
+                  onClick={() => onNavigate('assessment')}
+                >
+                  Start Assessment
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Reading Support Card */}
+            <Card className="card-soft interactive hover:border-primary/50 group">
+              <CardHeader className="text-center">
+                <div className="w-16 h-16 bg-gradient-success rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                  <BookOpen className="w-8 h-8 text-success-foreground" />
+                </div>
+                <CardTitle className="text-xl font-accessible">Reading Tools</CardTitle>
+                <CardDescription className="text-base">
+                  Synchronized text-to-speech with real-time highlighting
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
                   <div className="flex items-center space-x-2">
                     <Zap className="w-4 h-4 text-success" />
-                    <span className="text-sm">Perfect word synchronization</span>
+                    <span className="text-sm">Perfect synchronization</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Shield className="w-4 h-4 text-success" />
                     <span className="text-sm">Visual stress reduction</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Brain className="w-4 h-4 text-success" />
-                    <span className="text-sm">Phonological awareness</span>
+                    <Eye className="w-4 h-4 text-success" />
+                    <span className="text-sm">Word highlighting</span>
                   </div>
                 </div>
                 <Button 
+                  variant="outline"
                   className="w-full" 
                   onClick={() => onNavigate('reading')}
                 >
@@ -128,15 +172,15 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               </CardContent>
             </Card>
 
-            {/* Dyscalculia Support Card */}
+            {/* Math Visualization Card */}
             <Card className="card-soft interactive hover:border-primary/50 group">
               <CardHeader className="text-center">
                 <div className="w-16 h-16 bg-gradient-warm rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                   <Calculator className="w-8 h-8 text-accent-foreground" />
                 </div>
-                <CardTitle className="text-xl font-accessible">Math Visualization</CardTitle>
+                <CardTitle className="text-xl font-accessible">Math Visualizer</CardTitle>
                 <CardDescription className="text-base">
-                  Interactive number representations and visual problem solving
+                  Interactive number representations for dyscalculia
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -147,11 +191,11 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                   </div>
                   <div className="flex items-center space-x-2">
                     <Brain className="w-4 h-4 text-warning" />
-                    <span className="text-sm">Abstract concept visualization</span>
+                    <span className="text-sm">Step-by-step solving</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Zap className="w-4 h-4 text-warning" />
-                    <span className="text-sm">Step-by-step solutions</span>
+                    <span className="text-sm">Visual patterns</span>
                   </div>
                 </div>
                 <Button 
@@ -160,38 +204,6 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                   onClick={() => onNavigate('math')}
                 >
                   Explore Math Tools
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Accessibility Card */}
-            <Card className="card-soft interactive hover:border-primary/50 group md:col-span-2 lg:col-span-1">
-              <CardHeader className="text-center">
-                <div className="w-16 h-16 bg-gradient-success rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                  <Heart className="w-8 h-8 text-success-foreground" />
-                </div>
-                <CardTitle className="text-xl font-accessible">Accessibility First</CardTitle>
-                <CardDescription className="text-base">
-                  Comprehensive accessibility features built from the ground up
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <Users className="w-4 h-4 text-primary" />
-                    <span className="text-sm">High contrast mode</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Shield className="w-4 h-4 text-primary" />
-                    <span className="text-sm">Dyslexia-friendly fonts</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Brain className="w-4 h-4 text-primary" />
-                    <span className="text-sm">Reduced motion options</span>
-                  </div>
-                </div>
-                <Button variant="secondary" className="w-full">
-                  Learn More
                 </Button>
               </CardContent>
             </Card>
