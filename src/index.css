@@ -2,41 +2,76 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* NeuroAid Lite - Accessible Learning Platform Design System */
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Comic+Neue:wght@300;400;700&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Base accessible color system */
+    --background: 210 20% 98%;
+    --foreground: 215 25% 15%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 210 15% 99%;
+    --card-foreground: 215 25% 15%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 210 15% 99%;
+    --popover-foreground: 215 25% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Learning-focused primary colors */
+    --primary: 210 85% 42%;
+    --primary-foreground: 210 15% 99%;
+    --primary-glow: 210 85% 65%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Supportive secondary colors */
+    --secondary: 150 30% 85%;
+    --secondary-foreground: 150 25% 25%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Gentle muted tones */
+    --muted: 210 15% 92%;
+    --muted-foreground: 215 20% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Warm accent for highlights */
+    --accent: 45 95% 75%;
+    --accent-foreground: 45 25% 25%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Success and achievement colors */
+    --success: 150 60% 50%;
+    --success-foreground: 150 15% 99%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Gentle warning colors */
+    --warning: 35 85% 65%;
+    --warning-foreground: 35 25% 25%;
 
-    --radius: 0.5rem;
+    --destructive: 0 65% 55%;
+    --destructive-foreground: 0 15% 99%;
+
+    --border: 210 20% 88%;
+    --input: 210 20% 95%;
+    --ring: 210 85% 42%;
+
+    --radius: 0.75rem;
+
+    /* High contrast mode colors */
+    --high-contrast-bg: 220 25% 95%;
+    --high-contrast-fg: 220 25% 10%;
+    --high-contrast-border: 220 25% 25%;
+
+    /* Text highlighting colors */
+    --highlight-reading: 210 85% 85%;
+    --highlight-active: 45 95% 65%;
+
+    /* Gradients for visual interest */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-success: linear-gradient(135deg, hsl(var(--success)), hsl(150 60% 65%));
+    --gradient-warm: linear-gradient(135deg, hsl(var(--accent)), hsl(35 85% 80%));
+
+    /* Shadows and effects */
+    --shadow-soft: 0 4px 20px -4px hsl(var(--primary) / 0.15);
+    --shadow-glow: 0 0 30px hsl(var(--primary-glow) / 0.4);
+
+    /* Animation variables */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -56,41 +91,58 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 215 30% 8%;
+    --foreground: 210 20% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 215 25% 12%;
+    --card-foreground: 210 20% 95%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 215 25% 12%;
+    --popover-foreground: 210 20% 95%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 210 85% 65%;
+    --primary-foreground: 215 30% 8%;
+    --primary-glow: 210 85% 75%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 150 20% 25%;
+    --secondary-foreground: 150 30% 85%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 215 20% 18%;
+    --muted-foreground: 215 15% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 45 85% 65%;
+    --accent-foreground: 45 25% 15%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --success: 150 50% 45%;
+    --success-foreground: 150 20% 95%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --warning: 35 75% 55%;
+    --warning-foreground: 35 25% 15%;
+
+    --destructive: 0 65% 55%;
+    --destructive-foreground: 0 20% 95%;
+
+    --border: 215 20% 25%;
+    --input: 215 20% 18%;
+    --ring: 210 85% 65%;
+
+    /* High contrast dark mode */
+    --high-contrast-bg: 220 30% 5%;
+    --high-contrast-fg: 220 20% 98%;
+    --high-contrast-border: 220 20% 85%;
+
+    /* Dark mode highlights */
+    --highlight-reading: 210 85% 25%;
+    --highlight-active: 45 85% 35%;
+  }
+
+  /* High contrast accessibility mode */
+  .high-contrast {
+    --background: var(--high-contrast-bg);
+    --foreground: var(--high-contrast-fg);
+    --border: var(--high-contrast-border);
+    --card: var(--high-contrast-bg);
+    --card-foreground: var(--high-contrast-fg);
   }
 }
 
@@ -101,5 +153,97 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Atkinson Hyperlegible', 'Comic Neue', -apple-system, BlinkMacSystemFont, sans-serif;
+    transition: var(--transition-smooth);
+  }
+
+  /* Dyslexia-friendly typography */
+  .font-dyslexia {
+    font-family: 'Comic Neue', 'Atkinson Hyperlegible', sans-serif;
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+  }
+
+  /* Reading highlight animations */
+  .highlight-reading {
+    background-color: hsl(var(--highlight-reading));
+    border-radius: 4px;
+    padding: 2px 4px;
+    transition: var(--transition-smooth);
+  }
+
+  .highlight-active {
+    background-color: hsl(var(--highlight-active));
+    transform: scale(1.02);
+    box-shadow: var(--shadow-soft);
+  }
+
+  /* Accessibility animations */
+  .reduce-motion {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  /* Focus indicators for accessibility */
+  .focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* Custom gradient backgrounds */
+  .bg-gradient-primary {
+    background: var(--gradient-primary);
+  }
+  
+  .bg-gradient-success {
+    background: var(--gradient-success);
+  }
+  
+  .bg-gradient-warm {
+    background: var(--gradient-warm);
+  }
+
+  /* Text shadows for better readability */
+  .text-shadow {
+    text-shadow: 0 1px 3px hsl(var(--foreground) / 0.1);
+  }
+
+  /* Card with soft shadow */
+  .card-soft {
+    box-shadow: var(--shadow-soft);
+  }
+
+  /* Interactive elements */
+  .interactive {
+    transition: var(--transition-smooth);
+    cursor: pointer;
+  }
+
+  .interactive:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Math visualization styles */
+  .math-block {
+    display: inline-block;
+    min-width: 60px;
+    min-height: 60px;
+    border-radius: var(--radius);
+    border: 2px solid hsl(var(--border));
+    background: hsl(var(--card));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.25rem;
+    transition: var(--transition-bounce);
+  }
+
+  .math-block:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-soft);
   }
 }
