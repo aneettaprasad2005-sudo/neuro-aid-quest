@@ -1,149 +1,49 @@
 import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
-import { Badge } from "@/components/ui/badge";
-import { 
-  BookOpen, 
-  Calculator, 
-  Settings, 
-  Contrast, 
-  Type,
-  Heart,
-  PenTool,
-  Brain,
-  Trophy
-} from "lucide-react";
-import { useState } from "react";
+import { Eye, BarChart3, Settings, Home } from "lucide-react";
 
 interface HeaderProps {
-  currentPage: 'home' | 'reading' | 'math' | 'writing' | 'assessment' | 'learning';
-  onPageChange: (page: 'home' | 'reading' | 'math' | 'writing' | 'assessment' | 'learning') => void;
+  currentPage: 'home' | 'detector' | 'analytics' | 'settings';
+  onPageChange: (page: 'home' | 'detector' | 'analytics' | 'settings') => void;
 }
 
-export default function Header({ currentPage, onPageChange }: HeaderProps) {
-  const [highContrast, setHighContrast] = useState(false);
-  const [dyslexiaFont, setDyslexiaFont] = useState(true);
-
-  const toggleHighContrast = () => {
-    setHighContrast(!highContrast);
-    document.documentElement.classList.toggle('high-contrast');
-  };
-
-  const toggleDyslexiaFont = () => {
-    setDyslexiaFont(!dyslexiaFont);
-    document.body.classList.toggle('font-dyslexia');
-  };
+const Header = ({ currentPage, onPageChange }: HeaderProps) => {
+  const navItems = [
+    { id: 'home', label: 'Home', icon: Home },
+    { id: 'detector', label: 'Detector', icon: Eye },
+    { id: 'analytics', label: 'Analytics', icon: BarChart3 },
+    { id: 'settings', label: 'Settings', icon: Settings },
+  ];
 
   return (
-    <header className="bg-card border-b border-border sticky top-0 z-50 card-soft">
+    <header className="bg-card border-b border-border sticky top-0 z-50 shadow-elegant">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo and Title */}
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
-              <Heart className="w-6 h-6 text-primary-foreground" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold text-foreground font-accessible">
-                NeuroAid Lite
-              </h1>
-              <p className="text-sm text-muted-foreground">
-                Learning companion for everyone
-              </p>
-            </div>
-            <Badge variant="secondary" className="hidden md:inline-flex">
-              Accessibility First
-            </Badge>
+          <div className="flex items-center space-x-2">
+            <Eye className="w-8 h-8 text-primary" />
+            <h1 className="text-2xl font-bold text-primary">FocusGuard AI</h1>
           </div>
-
-          {/* Navigation */}
+          
           <nav className="flex items-center space-x-2">
-            <Button
-              variant={currentPage === 'home' ? 'default' : 'ghost'}
-              size="sm"
-              onClick={() => onPageChange('home')}
-              className="flex items-center space-x-2"
-            >
-              <Heart className="w-4 h-4" />
-              <span className="hidden md:inline">Home</span>
-            </Button>
-            
-            <Button
-              variant={currentPage === 'reading' ? 'default' : 'ghost'}
-              size="sm"
-              onClick={() => onPageChange('reading')}
-              className="flex items-center space-x-2"
-            >
-              <BookOpen className="w-4 h-4" />
-              <span className="hidden md:inline">Reading</span>
-            </Button>
-            
-            <Button
-              variant={currentPage === 'math' ? 'default' : 'ghost'}
-              size="sm"
-              onClick={() => onPageChange('math')}
-              className="flex items-center space-x-2"
-            >
-              <Calculator className="w-4 h-4" />
-              <span className="hidden md:inline">Math</span>
-            </Button>
-
-            <Button
-              variant={currentPage === 'writing' ? 'default' : 'ghost'}
-              size="sm"
-              onClick={() => onPageChange('writing')}
-              className="flex items-center space-x-2"
-            >
-              <PenTool className="w-4 h-4" />
-              <span className="hidden md:inline">Writing</span>
-            </Button>
-
-            <Button
-              variant={currentPage === 'assessment' ? 'default' : 'ghost'}
-              size="sm"
-              onClick={() => onPageChange('assessment')}
-              className="flex items-center space-x-2"
-            >
-              <Brain className="w-4 h-4" />
-              <span className="hidden md:inline">Assessment</span>
-            </Button>
-
-            <Button
-              variant={currentPage === 'learning' ? 'default' : 'ghost'}
-              size="sm"
-              onClick={() => onPageChange('learning')}
-              className="flex items-center space-x-2"
-            >
-              <Trophy className="w-4 h-4" />
-              <span className="hidden md:inline">Learning</span>
-            </Button>
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <Button
+                  key={item.id}
+                  variant={currentPage === item.id ? 'default' : 'ghost'}
+                  size="sm"
+                  onClick={() => onPageChange(item.id as 'home' | 'detector' | 'analytics' | 'settings')}
+                  className="flex items-center space-x-2"
+                >
+                  <Icon className="w-4 h-4" />
+                  <span className="hidden md:inline">{item.label}</span>
+                </Button>
+              );
+            })}
           </nav>
-
-          {/* Accessibility Controls */}
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-2">
-              <Contrast className="w-4 h-4 text-muted-foreground" />
-              <Switch
-                checked={highContrast}
-                onCheckedChange={toggleHighContrast}
-                aria-label="Toggle high contrast mode"
-              />
-            </div>
-            
-            <div className="flex items-center space-x-2">
-              <Type className="w-4 h-4 text-muted-foreground" />
-              <Switch
-                checked={dyslexiaFont}
-                onCheckedChange={toggleDyslexiaFont}
-                aria-label="Toggle dyslexia-friendly font"
-              />
-            </div>
-            
-            <Button variant="ghost" size="sm">
-              <Settings className="w-4 h-4" />
-            </Button>
-          </div>
         </div>
       </div>
     </header>
   );
-}
+};
+
+export default Header;

@@ -1,94 +1,65 @@
 import { useState } from "react";
 import Header from "@/components/Header";
 import HomePage from "@/components/HomePage";
-import ReadingTool from "@/components/ReadingTool";
-import MathTool from "@/components/MathTool";
-import WritingTool from "@/components/WritingTool";
-import AssessmentModule from "@/components/AssessmentModule";
-import ResultsAnalysis from "@/components/ResultsAnalysis";
-import PersonalizedTasks from "@/components/PersonalizedTasks";
+import DistractionDetector from "@/components/DistractionDetector";
+import Analytics from "@/components/Analytics";
+import Settings from "@/components/Settings";
 
-interface AssessmentResult {
-  testName: string;
-  score: number;
-  maxScore: number;
-  difficulty: 'low' | 'medium' | 'high';
-  timeSpent: number;
-  errors: string[];
+export interface DistractionEvent {
+  timestamp: number;
+  type: 'looking_away' | 'phone_detected' | 'multiple_faces' | 'no_face' | 'eyes_closed';
+  confidence: number;
+  duration: number;
 }
 
-interface LearningProfile {
-  overallLevel: 'beginner' | 'intermediate' | 'advanced';
-  strengths: string[];
-  challenges: string[];
-  recommendedTasks: any[];
-  focusAreas: string[];
+export interface SessionData {
+  sessionId: string;
+  startTime: number;
+  endTime?: number;
+  distractions: DistractionEvent[];
+  focusScore: number;
+  totalDuration: number;
 }
 
 const Index = () => {
-  const [currentPage, setCurrentPage] = useState<'home' | 'reading' | 'math' | 'writing' | 'assessment' | 'learning'>('home');
-  const [assessmentResults, setAssessmentResults] = useState<AssessmentResult[]>([]);
-  const [learningProfile, setLearningProfile] = useState<LearningProfile | null>(null);
-  const [showResults, setShowResults] = useState(false);
+  const [currentPage, setCurrentPage] = useState<'home' | 'detector' | 'analytics' | 'settings'>('home');
+  const [sessions, setSessions] = useState<SessionData[]>([]);
+  const [currentSession, setCurrentSession] = useState<SessionData | null>(null);
 
-  const handleNavigation = (page: 'home' | 'reading' | 'math' | 'writing' | 'assessment' | 'learning') => {
+  const handleNavigation = (page: 'home' | 'detector' | 'analytics' | 'settings') => {
     setCurrentPage(page);
   };
 
-  const handleAssessmentComplete = (results: AssessmentResult[]) => {
-    setAssessmentResults(results);
-    setShowResults(true);
+  const handleSessionStart = (session: SessionData) => {
+    setCurrentSession(session);
   };
 
-  const handleStartLearning = (profile: LearningProfile) => {
-    setLearningProfile(profile);
-    setShowResults(false);
-    setCurrentPage('learning');
+  const handleSessionEnd = (session: SessionData) => {
+    setSessions(prev => [...prev, session]);
+    setCurrentSession(null);
   };
 
   const renderCurrentPage = () => {
-    if (currentPage === 'assessment' && showResults) {
-      return (
-        <ResultsAnalysis 
-          results={assessmentResults}
-          onStartLearning={handleStartLearning}
-        />
-      );
-    }
-
     switch (currentPage) {
-      case 'reading':
-        return <ReadingTool />;
-      case 'math':
-        return <MathTool />;
-      case 'writing':
-        return <WritingTool />;
-      case 'assessment':
-        return <AssessmentModule onComplete={handleAssessmentComplete} />;
-      case 'learning':
-        return learningProfile ? (
-          <PersonalizedTasks learningProfile={learningProfile} />
-        ) : (
-          <div className="container mx-auto px-4 py-8 text-center">
-            <h2 className="text-2xl font-bold mb-4">Complete Assessment First</h2>
-            <p className="text-muted-foreground mb-6">
-              Take our comprehensive assessment to unlock your personalized learning journey.
-            </p>
-            <button 
-              onClick={() => setCurrentPage('assessment')}
-              className="bg-gradient-primary text-primary-foreground px-6 py-3 rounded-lg"
-            >
-              Start Assessment
-            </button>
-          </div>
+      case 'detector':
+        return (
+          <DistractionDetector 
+            onSessionStart={handleSessionStart}
+            onSessionEnd={handleSessionEnd}
+            currentSession={currentSession}
+          />
         );
+      case 'analytics':
+        return <Analytics sessions={sessions} />;
+      case 'settings':
+        return <Settings />;
       default:
         return <HomePage onNavigate={handleNavigation} />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-background font-accessible">
+    <div className="min-h-screen bg-background">
       <Header 
         currentPage={currentPage} 
         onPageChange={handleNavigation} 

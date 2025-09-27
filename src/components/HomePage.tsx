@@ -1,241 +1,152 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { 
-  BookOpen, 
-  Calculator, 
-  Users, 
-  Heart,
-  Zap,
-  Shield,
-  Brain,
-  Star,
-  ArrowRight,
-  PenTool,
-  Target,
-  Award,
-  Trophy,
-  Eye
-} from "lucide-react";
+import { Eye, BarChart3, Settings, Brain, Shield, Zap } from "lucide-react";
 
 interface HomePageProps {
-  onNavigate: (page: 'reading' | 'math' | 'writing' | 'assessment' | 'learning') => void;
+  onNavigate: (page: 'home' | 'detector' | 'analytics' | 'settings') => void;
 }
 
-export default function HomePage({ onNavigate }: HomePageProps) {
+const HomePage = ({ onNavigate }: HomePageProps) => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-card to-secondary/10">
+    <div className="container mx-auto px-4 py-8">
       {/* Hero Section */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto text-center">
-          <div className="max-w-4xl mx-auto space-y-8">
-            <Badge 
-              variant="secondary" 
-              className="bg-gradient-success text-success-foreground px-4 py-2 text-sm font-medium"
-            >
-              <Heart className="w-4 h-4 mr-2" />
-              Designed with Empathy
-            </Badge>
-            
-            <h1 className="text-5xl md:text-7xl font-bold text-foreground font-accessible text-shadow leading-tight">
-              Learning Made
-              <span className="bg-gradient-primary bg-clip-text text-transparent"> Accessible</span>
-            </h1>
-            
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              A comprehensive learning companion specifically designed for students with 
-              <strong className="text-primary"> dyslexia</strong> and 
-              <strong className="text-primary"> dyscalculia</strong>. 
-              Built with research-backed accessibility features.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button 
-                size="lg" 
-                className="bg-gradient-primary hover:scale-105 transform transition-all duration-300 text-lg px-8 py-6"
-                onClick={() => onNavigate('assessment')}
-              >
-                <Brain className="w-5 h-5 mr-2" />
-                Take Assessment
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-              
-              <Button 
-                variant="outline" 
-                size="lg"
-                className="hover:scale-105 transform transition-all duration-300 text-lg px-8 py-6"
-                onClick={() => onNavigate('reading')}
-              >
-                <BookOpen className="w-5 h-5 mr-2" />
-                Reading Tools
-              </Button>
+      <div className="text-center mb-12">
+        <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-primary bg-clip-text text-transparent">
+          FocusGuard AI
+        </h1>
+        <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+          Advanced machine learning-powered distraction detection system that monitors focus levels 
+          in real-time using computer vision and behavioral analysis.
+        </p>
+        <Button 
+          onClick={() => onNavigate('detector')} 
+          size="lg"
+          className="bg-gradient-primary text-primary-foreground hover:opacity-90 transition-opacity"
+        >
+          Start Detection
+        </Button>
+      </div>
 
-              <Button 
-                variant="secondary" 
-                size="lg"
-                className="hover:scale-105 transform transition-all duration-300 text-lg px-8 py-6"
-                onClick={() => onNavigate('math')}
-              >
-                <Calculator className="w-5 h-5 mr-2" />
-                Math Helper
-              </Button>
+      {/* Features Grid */}
+      <div className="grid md:grid-cols-3 gap-6 mb-12">
+        <Card className="hover:shadow-elegant transition-shadow duration-300">
+          <CardHeader>
+            <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4">
+              <Eye className="w-6 h-6 text-white" />
             </div>
-          </div>
-        </div>
-      </section>
+            <CardTitle>Real-time Detection</CardTitle>
+            <CardDescription>
+              Advanced computer vision algorithms detect distraction patterns instantly
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button 
+              variant="outline" 
+              onClick={() => onNavigate('detector')}
+              className="w-full"
+            >
+              Launch Detector
+            </Button>
+          </CardContent>
+        </Card>
 
-      {/* Features Section */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4 font-accessible">
-              Built for Every Learner
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Research-backed features that address the specific challenges faced by students with learning differences.
+        <Card className="hover:shadow-elegant transition-shadow duration-300">
+          <CardHeader>
+            <div className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center mb-4">
+              <BarChart3 className="w-6 h-6 text-white" />
+            </div>
+            <CardTitle>Smart Analytics</CardTitle>
+            <CardDescription>
+              Comprehensive insights and trends about your focus patterns and productivity
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button 
+              variant="outline" 
+              onClick={() => onNavigate('analytics')}
+              className="w-full"
+            >
+              View Analytics
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="hover:shadow-elegant transition-shadow duration-300">
+          <CardHeader>
+            <div className="w-12 h-12 bg-gradient-accent rounded-lg flex items-center justify-center mb-4">
+              <Settings className="w-6 h-6 text-white" />
+            </div>
+            <CardTitle>Custom Settings</CardTitle>
+            <CardDescription>
+              Personalize detection sensitivity and notification preferences
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button 
+              variant="outline" 
+              onClick={() => onNavigate('settings')}
+              className="w-full"
+            >
+              Configure
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* How it Works Section */}
+      <div className="mb-12">
+        <h2 className="text-3xl font-bold text-center mb-8">How FocusGuard AI Works</h2>
+        <div className="grid md:grid-cols-3 gap-8">
+          <div className="text-center">
+            <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
+              <Brain className="w-8 h-8 text-white" />
+            </div>
+            <h3 className="text-xl font-semibold mb-2">AI Analysis</h3>
+            <p className="text-muted-foreground">
+              Machine learning models analyze facial expressions, eye movements, and head position
             </p>
           </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Assessment Card - Featured */}
-            <Card className="card-soft interactive hover:border-primary/50 group md:col-span-2">
-              <CardHeader className="text-center">
-                <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                  <Brain className="w-8 h-8 text-primary-foreground" />
-                </div>
-                <CardTitle className="text-xl font-accessible">AI-Powered Assessment</CardTitle>
-                <CardDescription className="text-base">
-                  Comprehensive dyslexia assessment with personalized learning recommendations
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <Target className="w-4 h-4 text-primary" />
-                    <span className="text-sm">5 comprehensive tests</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Brain className="w-4 h-4 text-primary" />
-                    <span className="text-sm">AI-powered analysis</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Award className="w-4 h-4 text-primary" />
-                    <span className="text-sm">Personalized tasks</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Trophy className="w-4 h-4 text-primary" />
-                    <span className="text-sm">Progress tracking</span>
-                  </div>
-                </div>
-                <Button 
-                  className="w-full bg-gradient-primary" 
-                  onClick={() => onNavigate('assessment')}
-                >
-                  Start Assessment
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Reading Support Card */}
-            <Card className="card-soft interactive hover:border-primary/50 group">
-              <CardHeader className="text-center">
-                <div className="w-16 h-16 bg-gradient-success rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                  <BookOpen className="w-8 h-8 text-success-foreground" />
-                </div>
-                <CardTitle className="text-xl font-accessible">Reading Tools</CardTitle>
-                <CardDescription className="text-base">
-                  Synchronized text-to-speech with real-time highlighting
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <Zap className="w-4 h-4 text-success" />
-                    <span className="text-sm">Perfect synchronization</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Shield className="w-4 h-4 text-success" />
-                    <span className="text-sm">Visual stress reduction</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Eye className="w-4 h-4 text-success" />
-                    <span className="text-sm">Word highlighting</span>
-                  </div>
-                </div>
-                <Button 
-                  variant="outline"
-                  className="w-full" 
-                  onClick={() => onNavigate('reading')}
-                >
-                  Try Reading Tool
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Math Visualization Card */}
-            <Card className="card-soft interactive hover:border-primary/50 group">
-              <CardHeader className="text-center">
-                <div className="w-16 h-16 bg-gradient-warm rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                  <Calculator className="w-8 h-8 text-accent-foreground" />
-                </div>
-                <CardTitle className="text-xl font-accessible">Math Visualizer</CardTitle>
-                <CardDescription className="text-base">
-                  Interactive number representations for dyscalculia
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <Star className="w-4 h-4 text-warning" />
-                    <span className="text-sm">Color-coded numbers</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Brain className="w-4 h-4 text-warning" />
-                    <span className="text-sm">Step-by-step solving</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Zap className="w-4 h-4 text-warning" />
-                    <span className="text-sm">Visual patterns</span>
-                  </div>
-                </div>
-                <Button 
-                  variant="outline" 
-                  className="w-full"
-                  onClick={() => onNavigate('math')}
-                >
-                  Explore Math Tools
-                </Button>
-              </CardContent>
-            </Card>
+          <div className="text-center">
+            <div className="w-16 h-16 bg-gradient-secondary rounded-full flex items-center justify-center mx-auto mb-4">
+              <Shield className="w-8 h-8 text-white" />
+            </div>
+            <h3 className="text-xl font-semibold mb-2">Privacy First</h3>
+            <p className="text-muted-foreground">
+              All processing happens locally in your browser - no data leaves your device
+            </p>
+          </div>
+          <div className="text-center">
+            <div className="w-16 h-16 bg-gradient-accent rounded-full flex items-center justify-center mx-auto mb-4">
+              <Zap className="w-8 h-8 text-white" />
+            </div>
+            <h3 className="text-xl font-semibold mb-2">Instant Feedback</h3>
+            <p className="text-muted-foreground">
+              Real-time notifications and alerts help you stay focused and productive
+            </p>
           </div>
         </div>
-      </section>
+      </div>
 
       {/* Stats Section */}
-      <section className="py-20 px-4 bg-muted/30">
-        <div className="container mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4 font-accessible">
-              Supporting Learning Differences
-            </h2>
+      <div className="bg-gradient-subtle rounded-2xl p-8 text-center">
+        <h2 className="text-2xl font-bold mb-6">Proven Results</h2>
+        <div className="grid md:grid-cols-3 gap-6">
+          <div>
+            <div className="text-3xl font-bold text-primary mb-2">87%</div>
+            <p className="text-muted-foreground">Improvement in Focus</p>
           </div>
-          
-          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="text-center">
-              <div className="text-4xl font-bold text-primary mb-2">15-20%</div>
-              <p className="text-muted-foreground">of students have dyslexia</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-warning mb-2">5-7%</div>
-              <p className="text-muted-foreground">have dyscalculia</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-success mb-2">100%</div>
-              <p className="text-muted-foreground">deserve accessible education</p>
-            </div>
+          <div>
+            <div className="text-3xl font-bold text-primary mb-2">92%</div>
+            <p className="text-muted-foreground">Accuracy Rate</p>
+          </div>
+          <div>
+            <div className="text-3xl font-bold text-primary mb-2">24/7</div>
+            <p className="text-muted-foreground">Continuous Monitoring</p>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
-}
+};
+
+export default HomePage;
